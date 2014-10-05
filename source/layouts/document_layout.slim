@@ -1,0 +1,4 @@
+- content_for(:sidebar) do
+  = toc("source/#{current_page.path.gsub(".html", ".md")}")
+= wrap_layout :layout do
+  = yield

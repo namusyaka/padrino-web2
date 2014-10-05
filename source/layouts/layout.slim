@@ -1,0 +1,33 @@
+doctype 5
+html lang='en'
+  head
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    meta content='text/html; charset=utf-8' http-equiv='Content-Type'
+    meta name='viewport' content='width=device-width,initial-scale=1'
+    title = @title.present? ? "#{@title} | Padrino Framework" : "Padrino Framework | Ruby"
+    = favicon_tag '/favicon.ico'
+    = stylesheet_link_tag 'application'
+
+  body
+    .header
+      .container
+        .logo
+          = link_to image_tag('logo-mini-purple.png', alt: 'Padrino Framework'), "/"
+        .menu
+          ul
+            - menu_titles.each_pair do |title, path|
+              - path = path || "/pages/#{title}"
+              - current_path = current_page.path.gsub(/\.html/, "")
+              li = link_to title.capitalize, path, class: (!current_path.empty? && path.include?(current_path)) ? "selected" : nil
+    .main
+      - if sidebar = yield_content(:sidebar)
+        .sidebar
+          .text == yield_content(:sidebar)
+        .container
+          .text == yield
+      - else
+        .intro
+          .container == yield
