@@ -112,6 +112,11 @@ configure :build do
   # set :http_prefix, "/Content/images/"
 end
 
+activate :deploy do |deploy|
+  deploy.method = :git
+  deploy.branch = "gh-pages"
+end
+
 [:guides, :pages, :posts].each do |directory|
   page "#{directory}/*", layout: directory == :pages ? :layout : :document_layout
 end
