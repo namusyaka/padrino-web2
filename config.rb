@@ -121,5 +121,5 @@ end
   page "#{directory}/*", layout: directory == :pages ? :layout : :document_layout
 end
 
-proxy "/", "/posts/padrino-0-10-0-routing-upgrades-rbx-and-jruby-support-and-minor-breaking-changes.html", layout: :layout
-proxy "/guides", "/guides/home.html", layout: :layout
+proxy "/index.html", "/posts/padrino-0-10-0-routing-upgrades-rbx-and-jruby-support-and-minor-breaking-changes.html", layout: :layout
+proxy "/guides/index.html", "/guides/home.html", layout: :layout
