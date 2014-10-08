@@ -1,0 +1,37 @@
+---
+pageable: true
+per_page: 10
+---
+
+div
+- page_articles.each do |article|
+  h1 = link_to article.title, article.url
+  div
+    p = article.summary
+  div
+    | Posted in #{article.data.categories} by #{article.data.author} | #{time_ago_in_words article.date}
+
+.pagination
+  ul
+    li class=("disabled" unless prev_page)
+      - if prev_page
+        = link_to "&laquo;", prev_page.url
+      - else
+        span &laquo;
+
+    - page_numbers(page_number, num_pages).each do |i|
+      - if i == 0
+        li.disabled
+          span ...
+      - elsif i == page_number
+        li.active
+          span = i
+      - elsif i == 1
+        li = link_to "1", "/blog"
+      - else
+        li = link_to "#{i}", "/blog/page/#{i}"
+    li class=("disabled" unless next_page)
+      - if next_page
+        = link_to "&raquo;", next_page.url
+      - else
+        span &raquo;

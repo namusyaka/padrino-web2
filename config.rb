@@ -88,6 +88,15 @@ helpers do
   def menu_titles
     MENU_TITLES
   end
+
+  def page_numbers(page_number, num_pages)
+    @page_numbers = (page_number - 2 .. page_number + 2).select{|i| i > 0 && i <= num_pages}
+    @page_numbers.unshift(1)         if @page_numbers.first == 2
+    @page_numbers.unshift(1, 0)      if @page_numbers.first > 2
+    @page_numbers.push(0, num_pages) if @page_numbers.last < num_pages - 1
+    @page_numbers.push(num_pages)    if @page_numbers.last == num_pages - 1
+    @page_numbers
+  end
 end
 
 activate :directory_indexes
@@ -118,9 +127,20 @@ activate :deploy do |deploy|
   deploy.build_before = true
 end
 
-[:guides, :pages, :posts].each do |directory|
-  page "#{directory}/*", layout: directory == :pages ? :layout : :document_layout
-end
+page "/guides/*",  layout: :layout
+page "/pages/*",   layout: :document_layout
 
 proxy "/index.html", "/posts/padrino-0-10-0-routing-upgrades-rbx-and-jruby-support-and-minor-breaking-changes.html", layout: :layout
 proxy "/guides/index.html", "/guides/home.html", layout: :layout
+proxy "/blog/index.html", "/pages/blog.html", layout: :layout
+
+activate :blog do |blog|
+  blog.permalink          = "/blog/:title"
+  blog.sources            = "/posts/:title.html"
+  blog.layout             = "document_layout"
+  blog.summary_separator  = /<break>/
+  blog.summary_length     = nil
+  blog.paginate           = true
+  blog.per_page           = 10
+  blog.page_link          = "page/:num"
+end
