@@ -40,7 +40,7 @@ h2 {
 }
 
 .main {
-  background: #FFF url(noise.png);
+  background: #FFF url(/images/noise.png);
   .container {
     .text {
       margin-left: grid-width(2.5) + 20;
@@ -80,7 +80,7 @@ h2 {
 }
 
 .header {
-  background: $lighter-gray url(noise.png);
+  background: $lighter-gray url(/images/noise.png);
   border-bottom: 1px solid lighten($light-gray, 15%);
   .container {
     @include clearfix;
