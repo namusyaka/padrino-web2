@@ -10,6 +10,7 @@ html lang='en'
     title = @title.present? ? "#{@title} | Padrino Framework" : "Padrino Framework | Ruby"
     = favicon_tag '/favicon.ico'
     = stylesheet_link_tag 'application'
+    = javascript_include_tag "all"
 
   body
     .header
